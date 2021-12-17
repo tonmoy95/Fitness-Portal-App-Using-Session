@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+<title>Dashboard Page</title>
+
+<style>
+
+.error{
+	color : red;
+	text-align : center;
+}
+
+.success{
+	color : green;
+	text-align : center;
+}
+</style>
+
+</head>
+<body>
+
+<!-- <table>
+	<tbody>
+		<tr th:with="userSession=${null}">
+			
+		</tr>
+	</tbody>
+</table>
+ -->
+ 
+<!--  <div th:each="sessionDetails : ${sessionValue}">
+ 	<ul>
+ 		<li>
+ 			<p th:if="${sessionDetails}=='null'">
+ 				<a th:href="@{/user/dashboard}"></a>
+ 			</p>
+ 		</li>
+ 	</ul>
+ 
+ </div> -->
+ 
+<nav class="navbar navbar-expand-sm bg-primary navbar-dark" >
+  <a class="navbar-brand" th:href="@{/user/dashboard}"><h2>Fitness Portal App</h2></a>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Profile
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" th:href="@{/profile/saveProfile}">Add Profile</a>
+          <a class="dropdown-item" th:href="@{/profile/updateProfile}">Update Profile</a>
+          <a class="dropdown-item" th:href="@{/profile/displayProfile}">Display Profile</a>
+        </div>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" th:href="@{/activity/saveActivity}">Add Activity</a>
+      </li>
+    </ul>
+     <a class="navbar-brand" th:href="@{/user/logout}">Logout</a>
+		
+  </div>
+</nav>
+<br>
+
+<div class="mb-3">
+<div>
+	<table>
+		<tBody >
+			<tr th:each="details : ${uDetails}" > 
+				<td ><h2 >&nbsp;&nbsp;Welcome, </h2> </td>
+				<td th:text="${details.firstName}" ></td>
+				<td th:text="${details.lastName}"></td>
+			</tr>
+		</tBody>
+	</table>
+</div>
+
+<div class="container" align="center">
+	<p th:if="${profileDetails}" class="error">No information found.</p>
+	<p th:if="${alreadyAdded}" class="error">Profile already added.</p>
+	<p th:if="${updateFirst}" class="error">Please add your profile first.</p>
+	<p th:if="${submittedProfile}" class="success">Profile has been added.</p>
+</div>
+</div>
+<br/>
+	<br/>
+<div align="center">
+	<form action="#" th:action="@{/activity/displayActivity}" th:object="${activity}" method="get"> 
+		<div class="form-group">
+			 <label for="activityType" >Display By Activity Type : </label> 
+			 <select th:field="*{activityType}">
+			 	<option th:each="a : ${activityList}" th:value="${a}" th:text="${a}" />
+			 </select>
+			 <span th:if="${#fields.hasErrors('activityType')}" th:errors="*{activityType}"> 
+				</span>
+				<input type="submit" value="DISPLAY" class="btn btn-primary col-2" /> 
+				<br>
+				<p th:if="${displayByActivityType}" class="error">No information found.</p>
+		</div>
+	</form>
+</div>
+<br>
+<br>
+<div class="form-group" align="center">
+		<form action="#" th:action="@{/activity/searchActivity}" th:object="${activity}" method="get">
+			<label for="title">Search By Title : </label> 
+				<input type="text" id="title" name="title" placeholder="Enter Title"
+					autofocus="autofocus" autoComplete="off" /> 
+				<span th:if="${#fields.hasErrors('title')}" th:errors="*{title}"> </span>
+				<input type="submit" value="SEARCH" class="btn btn-primary col-2" />
+				<br>
+				<p th:if="${displayBySearch}" class="error">No information found.</p>
+		</form>
+</div>
+
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
+</body>
+</html>

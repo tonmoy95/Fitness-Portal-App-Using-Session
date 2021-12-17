@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Login Page</title>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+<style>
+
+.error{
+	color : red;
+	text-align : center;
+}
+.success{
+	color : green;
+	text-align : center;
+}
+div.myClass{
+    padding : 10px 100px;
+}
+.myFooter{
+	background-color : blue;
+	color : white;
+}
+
+</style>
+
+</head>
+<body>
+
+<nav class="navbar navbar-expand-sm bg-primary navbar-dark">
+	 <a class="navbar-brand" th:href="@{/}"><h2>Fitness Portal App</h2></a> 
+	  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+	  <ul class="navbar-nav mr-auto">
+   </ul>
+	 <div class="navbar-brand" align="right">
+			<a class="navbar-brand" th:href="@{/user/saveUser}">Register</a>
+	</div>
+	</div>
+</nav>
+<br>
+
+<div class="form-group" align="center">
+                    <h2>Login Form</h2>
+                </div>
+<form th:action="@{/user/login}" th:object="${user}" method="post">
+
+	 <div align = "center">
+  		<div class="form-group col-md-6">
+    		<label for="emailId"></label>
+    		<input type="email" style="width:300px;" class="form-control" id="emailId" name="emailId"  placeholder="Email Id" autoComplete="off" required>
+  		</div>
+  		<div class="form-group col-md-6">
+  			  <label for="password"></label>
+  	  		<input type="password" style="width:300px;" class="form-control" id="password" name="password"  placeholder="Enter Password" autoComplete="off" required>
+ 		 </div>
+ 	  </div>
+ 	  <div class="row justify-content-center mt-4">
+       <div class="col-4">
+      		 <div class="myClass">
+       			<button type="submit" class="btn btn-block btn-primary">Log In</button>
+       		</div>       
+        </div>
+   </div>
+   <br>
+   <p th:if="${invalidPassword}" class="error">Password is incorrect.</p>
+	<p th:if="${userNotPresent}" class="error">Username or Password is
+			incorrect.</p>
+	<p th:if="${serverError}" class="error">500 Internal Server Error. Please log in again.</p>
+	<p th:if="${addedNew}" class="success">Registered Successfully.</p>
+	<p th:if="${deadSession}" class="error">You have been logged out. Please log in again.</p>
+</form> 
+<br> <br><br><br>
+ <div align="center" style="color : white;background-color:black" >
+ <footer>
+ <br>
+  @Copyright  2021 - All Right Reserved.
+</footer>
+</div>   
+
+</body>
